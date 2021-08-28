@@ -1,6 +1,26 @@
 <div class="container">
-  <div class="p-5">
+  <div class="p-3">
     <h1>SignalR Scaffold</h1>
     <p>People watching this page: <strong>{{counter}}</strong></p>
+    <label class="form-label">Here's the Final Name Entered: <strong>{{finalName}}</strong></label>
+  </div>
+
+  <div class="p-3">
+    <div class="col col-md-4">
+      <div class="mb-3">
+        <label class="form-label">First Name</label>
+        <input type="text" class="form-control" placeholder="John" [(ngModel)]="firstName">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Last Name</label>
+        <input type="text" class="form-control" placeholder="Doe" [(ngModel)]="lastName">
+      </div>
+
+      <div class="mb-3">
+        <input class="btn btn-primary" type="button" value="Get" (click)="retrieveFullName()"/>
+      </div>
+    </div>
+
+    <label class="form-label">Here's the Full Name: <strong>{{fullName}}</strong></label>
   </div>
 </div>

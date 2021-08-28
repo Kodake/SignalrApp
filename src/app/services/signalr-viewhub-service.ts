@@ -5,16 +5,20 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class SignalRService {
+export class SignalrViewHubService {
 
-  counter$ :BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  counter$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   constructor() { }
 
-  private hubConnection: signalR.HubConnection | undefined
+  private hubConnection: signalR.HubConnection | undefined;
+
   public startConnection = () => {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('https://localhost:44362/hub/view')
+      .withUrl('https://localhost:44362/hub/view', {
+        transport: signalR.HttpTransportType.WebSockets |
+          signalR.HttpTransportType.ServerSentEvents
+      })
       .build();
     this.hubConnection
       .start()
@@ -23,11 +27,13 @@ export class SignalRService {
       .catch(err => console.log('Error while starting connection: ' + err))
   }
 
-  public addTransferChartDataListener = () => {
+  public addTransferNotifyWatchingtDataListener = () => {
     this.hubConnection?.on('notifyWatching', (data) => {
       console.log(data);
     });
   }
+
+  // ViewHub
 
   public viewPage() {
     this.hubConnection?.on("viewCountUpdate", (value: number) => {
@@ -35,7 +41,7 @@ export class SignalRService {
     });
   }
 
-  setCounter(counter:number) {
+  setCounter(counter: number) {
     this.counter$.next(counter);
   }
 
