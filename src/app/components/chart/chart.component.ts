@@ -37,6 +37,11 @@ export class ChartComponent implements OnInit {
   // Doughnut
   public doughnutChartType: ChartType = "doughnut";
 
+  // Pie
+  public pieChartType: ChartType = "pie";
+  public polarAreaLegend = true;
+  public polarAreaChartType: ChartType = "polarArea";
+
   constructor(private signalrChartHubService: SignalrChartHubService) { }
 
   ngOnInit() {
