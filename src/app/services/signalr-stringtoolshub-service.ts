@@ -43,7 +43,6 @@ export class SignalrStringToolsHubService {
 
     public viewFullName() {
         this.hubConnection?.on("viewFullNameUpdate", (value: string) => {
-            console.log(value);
             this.setFinalName(value);
         });
     }
